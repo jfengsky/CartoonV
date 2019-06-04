@@ -1,23 +1,40 @@
 import * as React from 'react'
 
-const { useEffect } = React
+import { FETCH_PATCH } from '../../store/fetch'
+
+const { useEffect, useState } = React
 
 const Edit = ({ State, Dispatch }: any) => {
-  let { isShowEdit } = State
+  let { isShowEdit, cartoonfold } = State
 
-  useEffect(()=>{
-    const saveData = async () => {
+  const [foldValue, setFold] = useState(cartoonfold)
 
+  useEffect(() => {
+    setFold(cartoonfold)
+  }, [cartoonfold])
+
+  const saveFold = async () => {
+    let saveData = await FETCH_PATCH({ type: 'save', value: foldValue })
+    let {
+      state,
+      data: {
+        writeState
+      }
+    } = saveData
+
+    if(!state && writeState === 'success'){
+      // Dispatch
+      alert('success')
     }
-  }, [])
+  }
 
   return (
     <>
       <div className="form-group">
         <label>本地路径:</label>
-        <input type="email" className="form-control" placeholder="" />
+        <input type="text" className="form-control" value={foldValue} onChange={e => setFold(e.target.value)} placeholder="" />
       </div>
-      <button type="button" className="btn btn-primary">保存</button>
+      <button type="button" className="btn btn-primary" onClick={saveFold} >保存</button>
     </>
   )
 }

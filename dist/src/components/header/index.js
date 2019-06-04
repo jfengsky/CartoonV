@@ -13,9 +13,11 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var Nav_1 = require("./Nav");
+var Breadcrumb_1 = require("./Breadcrumb");
 var Header = function (props) {
     return (React.createElement("header", null,
-        React.createElement(Nav_1.default, __assign({}, props))));
+        React.createElement(Nav_1.default, __assign({}, props)),
+        React.createElement(Breadcrumb_1.default, __assign({}, props))));
 };
 exports.default = Header;
 //# sourceMappingURL=index.js.map

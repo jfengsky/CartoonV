@@ -36,20 +36,36 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var headers = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
-};
-exports.FETCH_SAVE_PATCH = function (data) { return __awaiter(_this, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, fetch('', {
-                    method: 'post',
-                    headers: headers,
-                    body: JSON.stringify(data)
-                }).then(function (res) { return res.json(); })];
-            case 1: return [2 /*return*/, _a.sent()];
-        }
+var file_1 = require("../file");
+var initPath = '../../init/index.json';
+exports.default = (function (_a) {
+    var data = _a.data;
+    return __awaiter(_this, void 0, void 0, function () {
+        var type, value, fold, data_1, data_2, data_3;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    type = data.type, value = data.value, fold = data.fold;
+                    if (!(type === 'get')) return [3 /*break*/, 2];
+                    return [4 /*yield*/, file_1.readfile({ path: initPath })];
+                case 1:
+                    data_1 = _b.sent();
+                    return [2 /*return*/, data_1];
+                case 2:
+                    if (!(type === 'save')) return [3 /*break*/, 4];
+                    return [4 /*yield*/, file_1.writefile({ path: initPath, key: 'cartoonfold', value: value })];
+                case 3:
+                    data_2 = _b.sent();
+                    return [2 /*return*/, data_2];
+                case 4:
+                    if (!(type === 'getfold')) return [3 /*break*/, 6];
+                    return [4 /*yield*/, file_1.readfold({ fold: fold })];
+                case 5:
+                    data_3 = _b.sent();
+                    return [2 /*return*/, data_3];
+                case 6: return [2 /*return*/, {}];
+            }
+        });
     });
-}); };
-//# sourceMappingURL=fetch.js.map
+});
+//# sourceMappingURL=foldInfo.js.map

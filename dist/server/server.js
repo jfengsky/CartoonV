@@ -39,6 +39,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
 var bodyParser = require("body-parser");
 var layout_1 = require("./layout");
+var foldInfo_1 = require("./router/foldInfo");
 var app = express();
 var clientPort = 8082;
 app.use(bodyParser.json({ limit: '30mb' }));
@@ -54,16 +55,30 @@ app.get('*', function (req, res) {
 });
 var success = { state: 0, data: null };
 app.post('*', function (req, res) { return __awaiter(_this, void 0, void 0, function () {
-    var sendData;
-    return __generator(this, function (_a) {
-        sendData = {};
-        switch (req.path) {
-            case 'nproxyInfo':
-                return [2 /*return*/, res.send(Object.assign({}, success, sendData))];
-            default:
+    var sendData, _a;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                sendData = {};
+                _a = req.path;
+                switch (_a) {
+                    case '/cartoonPath': return [3 /*break*/, 1];
+                    case '/cartoonFold': return [3 /*break*/, 3];
+                }
+                return [3 /*break*/, 5];
+            case 1: return [4 /*yield*/, foldInfo_1.default({ data: req.body })];
+            case 2:
+                sendData = _b.sent();
+                return [2 /*return*/, res.send(Object.assign({}, success, { data: sendData }))];
+            case 3: return [4 /*yield*/, foldInfo_1.default({ data: req.body })];
+            case 4:
+                sendData = _b.sent();
+                return [2 /*return*/, res.send(Object.assign({}, success, { data: sendData }))];
+            case 5:
                 res.sendStatus('404');
+                _b.label = 6;
+            case 6: return [2 /*return*/];
         }
-        return [2 /*return*/];
     });
 }); });
 app.listen(clientPort, function () { return console.log("start client: http://localhost:" + clientPort); });

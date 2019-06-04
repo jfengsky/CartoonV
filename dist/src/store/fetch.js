@@ -40,10 +40,22 @@ var headers = {
     Accept: 'application/json',
     'Content-Type': 'application/json'
 };
-exports.FETCH_SAVE_PATCH = function (data) { return __awaiter(_this, void 0, void 0, function () {
+exports.FETCH_PATCH = function (data) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
         switch (_a.label) {
-            case 0: return [4 /*yield*/, fetch('', {
+            case 0: return [4 /*yield*/, fetch('/cartoonPath', {
+                    method: 'post',
+                    headers: headers,
+                    body: JSON.stringify(data)
+                }).then(function (res) { return res.json(); })];
+            case 1: return [2 /*return*/, _a.sent()];
+        }
+    });
+}); };
+exports.FETCH_FOLD = function (data) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, fetch('/cartoonFold', {
                     method: 'post',
                     headers: headers,
                     body: JSON.stringify(data)
