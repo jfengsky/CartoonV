@@ -39,15 +39,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
 var header_1 = require("./components/header");
 var main_1 = require("./components/main");
+var modal_1 = require("./components/modal");
 var initalState_1 = require("./store/initalState");
 var reducer_1 = require("./store/reducer");
 var fetch_1 = require("./store/fetch");
+var filter_1 = require("./store/filter");
 var useReducer = React.useReducer, useEffect = React.useEffect;
 var App = function () {
     var _a = useReducer(reducer_1.default, initalState_1.default), state = _a[0], dispatch = _a[1];
     useEffect(function () {
         var getPatch = function () { return __awaiter(_this, void 0, void 0, function () {
-            var fetchData, data, state, fetchFolds, state_1, folds, e_1;
+            var fetchData, data, state, fetchFolds, state_1, folds, dirList, fileList, newFileList, e_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, fetch_1.FETCH_PATCH({ type: 'get' })];
@@ -64,7 +66,14 @@ var App = function () {
                         fetchFolds = _a.sent();
                         state_1 = fetchFolds.state, folds = fetchFolds.data;
                         if (!state_1) {
-                            dispatch({ type: 'updataFold', value: folds });
+                            dirList = folds.dirList, fileList = folds.fileList;
+                            newFileList = filter_1.filterTempFile(fileList);
+                            dispatch({
+                                type: 'updataFold', value: {
+                                    dirList: dirList,
+                                    fileList: newFileList
+                                }
+                            });
                         }
                         return [3 /*break*/, 5];
                     case 4:
@@ -76,9 +85,11 @@ var App = function () {
         }); };
         getPatch();
     }, []);
+    var isShowModal = state.isShowModal;
     return (React.createElement("section", { className: 'container-fluid' },
         React.createElement(header_1.default, { State: state, Dispatch: dispatch }),
-        React.createElement(main_1.default, { State: state, Dispatch: dispatch })));
+        React.createElement(main_1.default, { State: state, Dispatch: dispatch }),
+        isShowModal && React.createElement(modal_1.default, { State: state, Dispatch: dispatch })));
 };
 exports.default = App;
 //# sourceMappingURL=App.js.map

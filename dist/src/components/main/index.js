@@ -8,7 +8,7 @@ var Main = function (_a) {
     var isShowEdit = State.isShowEdit;
     return (React.createElement("main", null,
         isShowEdit && React.createElement(Edit_1.default, { State: State, Dispatch: Dispatch }),
-        React.createElement(Cartoons_1.default, { State: State, Dispatch: Dispatch })));
+        !isShowEdit && React.createElement(Cartoons_1.default, { State: State, Dispatch: Dispatch })));
 };
 exports.default = Main;
 //# sourceMappingURL=index.js.map

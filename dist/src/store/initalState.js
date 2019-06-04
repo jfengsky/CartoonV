@@ -8,7 +8,9 @@ switch (hash) {
         break;
 }
 var initalState = {
-    isShowEdit: isShowEdit
+    isShowEdit: isShowEdit,
+    breadcrumb: '',
+    isShowModal: false
 };
 exports.default = initalState;
 //# sourceMappingURL=initalState.js.map

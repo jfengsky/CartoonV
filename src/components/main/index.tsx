@@ -8,7 +8,7 @@ const Main = ({ State, Dispatch }: any) => {
   return (
     <main>
       {isShowEdit && <Edit State={State} Dispatch={Dispatch} />}
-      <Cartoons State={State} Dispatch={Dispatch} />
+      {!isShowEdit && <Cartoons State={State} Dispatch={Dispatch} />}
     </main>
   )
 }

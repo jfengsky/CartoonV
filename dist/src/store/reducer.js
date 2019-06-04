@@ -6,6 +6,14 @@ var reducer = function (state, action) {
             return Object.assign({}, state, action.value);
         case 'updataFold':
             return Object.assign({}, state, action.value);
+        case 'showModal':
+            return Object.assign({}, state, {
+                isShowModal: true
+            });
+        case 'hideModal':
+            return Object.assign({}, state, {
+                isShowModal: false
+            });
         case 'showEdit':
             return Object.assign({}, state, {
                 isShowEdit: true

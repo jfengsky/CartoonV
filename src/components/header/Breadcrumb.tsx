@@ -5,14 +5,16 @@
 import * as React from 'react';
 
 const Breadcrumb = ({ State, Dispatch }: any) => {
-
+  let {
+    breadcrumb
+  } = State
   return (
     <nav>
-      <ol className='breadcrumb' style={{background: '#fff'}}>
+      <ol className='breadcrumb' style={{ background: '#fff' }}>
         <li className='breadcrumb-item active'>
-          <a href='#'>HOME</a>
+          <a href='/'>HOME</a>
         </li>
-        <li className="breadcrumb-item">Library</li>
+        {!!breadcrumb && <li className="breadcrumb-item">{breadcrumb}</li>}
       </ol>
     </nav>
   )

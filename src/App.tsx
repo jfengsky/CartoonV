@@ -1,11 +1,14 @@
 import * as React from 'react'
 import Header from './components/header'
 import Main from './components/main'
+import Modal from  './components/modal'
 
 import initalState from './store/initalState'
 import reducer from './store/reducer'
 
 import { FETCH_PATCH, FETCH_FOLD } from './store/fetch'
+import { filterTempFile } from './store/filter'
+
 
 const { useReducer, useEffect } = React
 
@@ -29,7 +32,21 @@ const App = () => {
             data: folds
           } = fetchFolds
           if (!state) {
-            dispatch({ type: 'updataFold', value: folds })
+
+            // 排除.DS_Store 和 .localized 两个文件
+            let {
+              dirList,
+              fileList
+            } = folds
+
+            let newFileList = filterTempFile(fileList)
+
+            dispatch({
+              type: 'updataFold', value: {
+                dirList,
+                fileList: newFileList
+              }
+            })
           }
         } catch (e) { }
 
@@ -38,10 +55,13 @@ const App = () => {
     getPatch()
   }, [])
 
+  let { isShowModal } = state
+
   return (
     <section className='container-fluid'>
       <Header State={state} Dispatch={dispatch} />
       <Main State={state} Dispatch={dispatch} />
+      { isShowModal && <Modal State={state} Dispatch={dispatch} /> }
     </section>
   )
 }

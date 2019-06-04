@@ -2,7 +2,7 @@ import { ITInitalState } from './initalState'
 
 interface ITAction {
   type: string
-  value?: string
+  value?: any
 }
 
 const reducer = (state: ITInitalState, action: ITAction) => {
@@ -11,6 +11,14 @@ const reducer = (state: ITInitalState, action: ITAction) => {
       return Object.assign({}, state, action.value)
     case 'updataFold':
       return Object.assign({}, state, action.value)
+    case 'showModal':
+      return Object.assign({}, state, {
+        isShowModal: true
+      })
+    case 'hideModal':
+      return Object.assign({}, state, {
+        isShowModal: false
+      })
     case 'showEdit':
       return Object.assign({}, state, {
         isShowEdit: true
