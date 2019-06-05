@@ -14,6 +14,14 @@ var modalStyle = {
 var fr = {
     float: 'right'
 };
+var conStyle = {
+    background: '#fff',
+    width: 400,
+    height: 600,
+    opacity: 0.01
+};
+var leftStyle = Object.assign({}, conStyle, { float: 'left' });
+var rightStyle = Object.assign({}, conStyle, { float: 'right' });
 var Modal = function (_a) {
     var State = _a.State, Dispatch = _a.Dispatch;
     var _b = useState(false), isFull = _b[0], setFull = _b[1];
@@ -71,9 +79,9 @@ var Modal = function (_a) {
             React.createElement("span", { style: fr, onClick: function () { return fullScreen(); } }, "\u5168\u5C4F")),
         React.createElement("div", { style: { position: 'absolute', zIndex: 1 } },
             React.createElement("img", { src: "//" + location.host + "/Cartoon" + (breadcrumb ? "/" + breadcrumb : '') + "/" + currentImage, width: '100%' })),
-        React.createElement("div", { style: { position: 'fixed', zIndex: 10 } },
-            React.createElement("a", { href: 'javascript:;', onClick: prevImage }, "prev"),
-            React.createElement("a", { href: 'javascript:;', onClick: nextImage }, "next"))));
+        React.createElement("div", { style: { position: 'fixed', zIndex: 10, width: '100%' } },
+            React.createElement("a", { href: 'javascript:;', onClick: prevImage, style: leftStyle }),
+            React.createElement("a", { href: 'javascript:;', onClick: nextImage, style: rightStyle }))));
 };
 exports.default = Modal;
 //# sourceMappingURL=index.js.map

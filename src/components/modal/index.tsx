@@ -16,6 +16,16 @@ const fr: any = {
   float: 'right'
 }
 
+const conStyle: any = {
+  background: '#fff',
+  width: 400,
+  height: 600,
+  opacity: 0.01
+}
+
+const leftStyle = Object.assign({}, conStyle, {float: 'left'})
+const rightStyle = Object.assign({}, conStyle, {float: 'right'})
+
 const Modal = ({ State, Dispatch }: any) => {
   const [isFull, setFull] = useState(false)
   const fullScreen = () => {
@@ -83,9 +93,9 @@ const Modal = ({ State, Dispatch }: any) => {
       <div style={{ position: 'absolute', zIndex: 1 }}>
         <img src={`//${location.host}/Cartoon${breadcrumb ? `/${breadcrumb}` : ''}/${currentImage}`} width='100%' />
       </div>
-      <div style={{ position: 'fixed', zIndex: 10 }}>
-        <a href='javascript:;' onClick={prevImage}>prev</a>
-        <a href='javascript:;' onClick={nextImage}>next</a>
+      <div style={{ position: 'fixed', zIndex: 10, width: '100%' }}>
+        <a href='javascript:;' onClick={prevImage} style={leftStyle} />
+        <a href='javascript:;' onClick={nextImage} style={rightStyle} />
       </div>
     </div>
   )
