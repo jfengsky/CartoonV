@@ -3,7 +3,6 @@
  */
 
 import * as React from 'react'
-import { FETCH_PATCH, FETCH_FOLD } from '../../store/fetch'
 
 const { useState, useEffect } = React
 
@@ -12,18 +11,9 @@ const CartoonFold = ({ data, Dispatch, State }: any) => {
     let {
       cartoonfold
     } = State
-    const fetchFolds = await FETCH_FOLD({ type: 'getfold', fold: `${cartoonfold}/${data}` })
-    let {
-      data: {
-        dirList,
-        fileList
-      },
-      state
-    } = fetchFolds
+
     Dispatch({
-      type: 'updataFold', value: {
-        dirList,
-        fileList,
+      type: 'changeFold', value: {
         breadcrumb: data
       }
     })
@@ -31,14 +21,16 @@ const CartoonFold = ({ data, Dispatch, State }: any) => {
 
   return (
     <div className='card'>
-      {/* <img className="card-img-top" src={`//${location.host}/Cartoon/${data}`} alt="Card image cap" /> */}
       <div className='card-body'>
         <h5 className="card-text">
-          <a href='javascript:;' onClick={() => changeFold(data)}>{data}</a>
+          <a href={`#${data}`} onClick={() => changeFold(data)}>{data}</a>
         </h5>
       </div>
       <div className="card-footer">
-        <small className="text-muted">readed</small>
+        <div className='form-check form-check-inline'>
+          <input className="form-check-input" type="checkbox" value="0" />
+          <label className="form-check-label">readed</label>
+        </div>
       </div>
     </div>
   )
@@ -50,7 +42,7 @@ const CartoonImg = ({ data, State, Dispatch }: any) => {
   } = State
 
   const showModal = () => {
-    Dispatch({ type: 'showModal' })
+    Dispatch({ type: 'showModal', value: data })
   }
 
   return (
@@ -69,8 +61,6 @@ const Cartoons = ({ State, Dispatch }: any) => {
     dirList,
     fileList
   } = State
-
-
 
   return (
     <div className='card-group'>

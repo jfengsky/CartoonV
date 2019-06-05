@@ -36,37 +36,38 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
-var headers = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json'
+var fetch_1 = require("./fetch");
+var filter_1 = require("./filter");
+exports.updataFold = function (_a) {
+    var State = _a.State, Dispatch = _a.Dispatch, Data = _a.Data;
+    return __awaiter(_this, void 0, void 0, function () {
+        var breadcrumb, cartoonfold, fetchFolds, state, folds, dirList, fileList, newFileList;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
+                case 0:
+                    breadcrumb = State.breadcrumb;
+                    cartoonfold = Data.cartoonfold || State.cartoonfold;
+                    if (breadcrumb) {
+                        cartoonfold = cartoonfold + "/" + breadcrumb;
+                    }
+                    console.log(cartoonfold);
+                    return [4 /*yield*/, fetch_1.FETCH_FOLD({ type: 'getfold', fold: Data.cartoonfold })];
+                case 1:
+                    fetchFolds = _b.sent();
+                    state = fetchFolds.state, folds = fetchFolds.data;
+                    if (!state) {
+                        dirList = folds.dirList, fileList = folds.fileList;
+                        newFileList = filter_1.filterTempFile(fileList);
+                        Dispatch({
+                            type: 'updataFold', value: {
+                                dirList: dirList,
+                                fileList: newFileList
+                            }
+                        });
+                    }
+                    return [2 /*return*/];
+            }
+        });
+    });
 };
-exports.FETCH_PATCH = function (data) { return __awaiter(_this, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, fetch('/cartoonPath', {
-                    method: 'post',
-                    headers: headers,
-                    body: JSON.stringify(data)
-                }).then(function (res) { return res.json(); })];
-            case 1: return [2 /*return*/, _a.sent()];
-        }
-    });
-}); };
-exports.FETCH_FOLD = function (data) { return __awaiter(_this, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, fetch('/cartoonFold', {
-                    method: 'post',
-                    headers: headers,
-                    body: JSON.stringify(data)
-                }).then(function (res) { return res.json(); })];
-            case 1: return [2 /*return*/, _a.sent()];
-        }
-    });
-}); };
-exports.FETCH_SAVE_VIEW = function (data) { return __awaiter(_this, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        return [2 /*return*/];
-    });
-}); };
-//# sourceMappingURL=fetch.js.map
+//# sourceMappingURL=util.js.map

@@ -50,7 +50,6 @@ export const writefile = async (_data: any) => {
     key,
     value
   } = _data
-
   // 先读取,然后修改,再写入
   let fileData = await readfile({ path: foldPath })
   fileData[key] = value

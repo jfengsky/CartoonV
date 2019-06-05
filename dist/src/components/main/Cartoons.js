@@ -40,43 +40,35 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
-var fetch_1 = require("../../store/fetch");
 var useState = React.useState, useEffect = React.useEffect;
 var CartoonFold = function (_a) {
     var data = _a.data, Dispatch = _a.Dispatch, State = _a.State;
     var changeFold = function (data) { return __awaiter(_this, void 0, void 0, function () {
-        var cartoonfold, fetchFolds, _a, dirList, fileList, state;
-        return __generator(this, function (_b) {
-            switch (_b.label) {
-                case 0:
-                    cartoonfold = State.cartoonfold;
-                    return [4 /*yield*/, fetch_1.FETCH_FOLD({ type: 'getfold', fold: cartoonfold + "/" + data })];
-                case 1:
-                    fetchFolds = _b.sent();
-                    _a = fetchFolds.data, dirList = _a.dirList, fileList = _a.fileList, state = fetchFolds.state;
-                    Dispatch({
-                        type: 'updataFold', value: {
-                            dirList: dirList,
-                            fileList: fileList,
-                            breadcrumb: data
-                        }
-                    });
-                    return [2 /*return*/];
-            }
+        var cartoonfold;
+        return __generator(this, function (_a) {
+            cartoonfold = State.cartoonfold;
+            Dispatch({
+                type: 'changeFold', value: {
+                    breadcrumb: data
+                }
+            });
+            return [2 /*return*/];
         });
     }); };
     return (React.createElement("div", { className: 'card' },
         React.createElement("div", { className: 'card-body' },
             React.createElement("h5", { className: "card-text" },
-                React.createElement("a", { href: 'javascript:;', onClick: function () { return changeFold(data); } }, data))),
+                React.createElement("a", { href: "#" + data, onClick: function () { return changeFold(data); } }, data))),
         React.createElement("div", { className: "card-footer" },
-            React.createElement("small", { className: "text-muted" }, "readed"))));
+            React.createElement("div", { className: 'form-check form-check-inline' },
+                React.createElement("input", { className: "form-check-input", type: "checkbox", value: "0" }),
+                React.createElement("label", { className: "form-check-label" }, "readed")))));
 };
 var CartoonImg = function (_a) {
     var data = _a.data, State = _a.State, Dispatch = _a.Dispatch;
     var breadcrumb = State.breadcrumb;
     var showModal = function () {
-        Dispatch({ type: 'showModal' });
+        Dispatch({ type: 'showModal', value: data });
     };
     return (React.createElement("div", { className: 'card', onClick: showModal },
         React.createElement("img", { className: "card-img-top", src: "//" + location.host + "/Cartoon" + (breadcrumb ? "/" + breadcrumb : '') + "/" + data, alt: "" }),

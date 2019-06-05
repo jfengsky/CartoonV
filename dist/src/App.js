@@ -47,25 +47,39 @@ var filter_1 = require("./store/filter");
 var useReducer = React.useReducer, useEffect = React.useEffect;
 var App = function () {
     var _a = useReducer(reducer_1.default, initalState_1.default), state = _a[0], dispatch = _a[1];
+    var cartoonfold = state.cartoonfold, breadcrumb = state.breadcrumb;
     useEffect(function () {
         var getPatch = function () { return __awaiter(_this, void 0, void 0, function () {
-            var fetchData, data, state, fetchFolds, state_1, folds, dirList, fileList, newFileList, e_1;
+            var fetchData, cartoonfold, st;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0: return [4 /*yield*/, fetch_1.FETCH_PATCH({ type: 'get' })];
                     case 1:
                         fetchData = _a.sent();
-                        data = fetchData.data, state = fetchData.state;
-                        if (!!state) return [3 /*break*/, 5];
-                        dispatch({ type: 'updataInit', value: data });
-                        _a.label = 2;
-                    case 2:
-                        _a.trys.push([2, 4, , 5]);
-                        return [4 /*yield*/, fetch_1.FETCH_FOLD({ type: 'getfold', fold: data.cartoonfold })];
-                    case 3:
+                        cartoonfold = fetchData.data.cartoonfold, st = fetchData.state;
+                        if (!st) {
+                            dispatch({
+                                type: 'updataInit', value: {
+                                    cartoonfold: cartoonfold
+                                }
+                            });
+                        }
+                        return [2 /*return*/];
+                }
+            });
+        }); };
+        getPatch();
+    }, []);
+    useEffect(function () {
+        var changeFold = function (currentFold) { return __awaiter(_this, void 0, void 0, function () {
+            var fetchFolds, state, folds, dirList, fileList, newFileList;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, fetch_1.FETCH_FOLD({ type: 'getfold', fold: currentFold })];
+                    case 1:
                         fetchFolds = _a.sent();
-                        state_1 = fetchFolds.state, folds = fetchFolds.data;
-                        if (!state_1) {
+                        state = fetchFolds.state, folds = fetchFolds.data;
+                        if (!state) {
                             dirList = folds.dirList, fileList = folds.fileList;
                             newFileList = filter_1.filterTempFile(fileList);
                             dispatch({
@@ -75,16 +89,18 @@ var App = function () {
                                 }
                             });
                         }
-                        return [3 /*break*/, 5];
-                    case 4:
-                        e_1 = _a.sent();
-                        return [3 /*break*/, 5];
-                    case 5: return [2 /*return*/];
+                        return [2 /*return*/];
                 }
             });
         }); };
-        getPatch();
-    }, []);
+        if (cartoonfold) {
+            var currentFold = cartoonfold;
+            if (breadcrumb) {
+                currentFold = currentFold + "/" + breadcrumb;
+            }
+            changeFold(currentFold);
+        }
+    }, [cartoonfold, breadcrumb]);
     var isShowModal = state.isShowModal;
     return (React.createElement("section", { className: 'container-fluid' },
         React.createElement(header_1.default, { State: state, Dispatch: dispatch }),
