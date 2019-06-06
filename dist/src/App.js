@@ -50,17 +50,19 @@ var App = function () {
     var cartoonfold = state.cartoonfold, breadcrumb = state.breadcrumb;
     useEffect(function () {
         var getPatch = function () { return __awaiter(_this, void 0, void 0, function () {
-            var fetchData, cartoonfold, st;
-            return __generator(this, function (_a) {
-                switch (_a.label) {
+            var fetchData, _a, cartoonfold, readed, last, st;
+            return __generator(this, function (_b) {
+                switch (_b.label) {
                     case 0: return [4 /*yield*/, fetch_1.FETCH_PATCH({ type: 'get' })];
                     case 1:
-                        fetchData = _a.sent();
-                        cartoonfold = fetchData.data.cartoonfold, st = fetchData.state;
+                        fetchData = _b.sent();
+                        _a = fetchData.data, cartoonfold = _a.cartoonfold, readed = _a.readed, last = _a.last, st = fetchData.state;
                         if (!st) {
                             dispatch({
                                 type: 'updataInit', value: {
-                                    cartoonfold: cartoonfold
+                                    cartoonfold: cartoonfold,
+                                    readed: readed,
+                                    last: last
                                 }
                             });
                         }

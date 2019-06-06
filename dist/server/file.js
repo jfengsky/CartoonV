@@ -113,4 +113,120 @@ exports.writefile = function (_data) { return __awaiter(_this, void 0, void 0, f
         }
     });
 }); };
+exports.writeFold = function (_data) { return __awaiter(_this, void 0, void 0, function () {
+    var foldPath, fold, fileData, readed, foldIndex, filePath, wirtes;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                foldPath = _data.path, fold = _data.fold;
+                return [4 /*yield*/, exports.readfile({ path: foldPath })];
+            case 1:
+                fileData = _a.sent();
+                readed = fileData['readed'];
+                if (!readed) {
+                    readed = [];
+                }
+                foldIndex = -1;
+                readed.some(function (item, index) {
+                    if (item.name === fold) {
+                        foldIndex = index;
+                        return true;
+                    }
+                });
+                if (foldIndex < 0) {
+                    readed.push({
+                        name: fold,
+                        readed: false,
+                        page: []
+                    });
+                }
+                fileData['readed'] = readed;
+                fileData['last'] = {
+                    name: fold,
+                    page: ''
+                };
+                filePath = path.join(__dirname, foldPath);
+                return [4 /*yield*/, fs.writeFileSync(filePath, JSON.stringify(fileData))];
+            case 2:
+                wirtes = _a.sent();
+                return [2 /*return*/, {
+                        writeState: 'success'
+                    }];
+        }
+    });
+}); };
+exports.writeFoldfile = function (_data) { return __awaiter(_this, void 0, void 0, function () {
+    var foldPath, fold, page, fileData, readed, foldIndex, readedInfo, readedPage, filePath, wirtes;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                foldPath = _data.path, fold = _data.fold, page = _data.page;
+                return [4 /*yield*/, exports.readfile({ path: foldPath })];
+            case 1:
+                fileData = _a.sent();
+                readed = fileData['readed'];
+                foldIndex = -1;
+                readed.some(function (item, index) {
+                    if (item.name === fold) {
+                        foldIndex = index;
+                        return true;
+                    }
+                });
+                readedInfo = readed[foldIndex];
+                readedPage = readedInfo.page;
+                if (readedPage.indexOf(page) < 0) {
+                    readedPage.push(page);
+                }
+                fileData['readed']['page'] = readedPage;
+                fileData['last'] = {
+                    name: fold,
+                    page: page
+                };
+                filePath = path.join(__dirname, foldPath);
+                return [4 /*yield*/, fs.writeFileSync(filePath, JSON.stringify(fileData))];
+            case 2:
+                wirtes = _a.sent();
+                return [2 /*return*/, {
+                        writeState: 'success'
+                    }];
+        }
+    });
+}); };
+exports.writeFoldReaded = function (_data) { return __awaiter(_this, void 0, void 0, function () {
+    var foldPath, fold, tempReaded, fileData, readed, foldIndex, filePath, wirtes;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                foldPath = _data.path, fold = _data.fold, tempReaded = _data.readed;
+                return [4 /*yield*/, exports.readfile({ path: foldPath })];
+            case 1:
+                fileData = _a.sent();
+                readed = fileData['readed'];
+                foldIndex = -1;
+                readed.some(function (item, index) {
+                    if (item.name === fold) {
+                        foldIndex = index;
+                        return true;
+                    }
+                });
+                if (foldIndex >= 0) {
+                    readed[foldIndex]['readed'] = tempReaded;
+                }
+                else {
+                    readed.push({
+                        name: fold,
+                        readed: tempReaded,
+                        page: []
+                    });
+                }
+                filePath = path.join(__dirname, foldPath);
+                return [4 /*yield*/, fs.writeFileSync(filePath, JSON.stringify(fileData))];
+            case 2:
+                wirtes = _a.sent();
+                return [2 /*return*/, {
+                        writeState: 'success'
+                    }];
+        }
+    });
+}); };
 //# sourceMappingURL=file.js.map

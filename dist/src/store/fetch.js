@@ -64,9 +64,16 @@ exports.FETCH_FOLD = function (data) { return __awaiter(_this, void 0, void 0, f
         }
     });
 }); };
-exports.FETCH_SAVE_VIEW = function (data) { return __awaiter(_this, void 0, void 0, function () {
+exports.FETCH_SAVE_FOLD = function (data) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        return [2 /*return*/];
+        switch (_a.label) {
+            case 0: return [4 /*yield*/, fetch('/changeFold', {
+                    method: 'post',
+                    headers: headers,
+                    body: JSON.stringify(data)
+                }).then(function (res) { return res.json(); })];
+            case 1: return [2 /*return*/, _a.sent()];
+        }
     });
 }); };
 //# sourceMappingURL=fetch.js.map

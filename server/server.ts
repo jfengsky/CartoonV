@@ -30,8 +30,11 @@ app.post('*', async (req: any, res: any) => {
       sendData = await foldInfo({ data: req.body })
       return res.send(Object.assign({}, success, { data: sendData }))
     case '/cartoonFold':
-        sendData = await foldInfo({ data: req.body })
+      sendData = await foldInfo({ data: req.body })
       return res.send(Object.assign({}, success, { data: sendData }))
+    case '/changeFold':
+        sendData = await foldInfo({ data: req.body })
+        return res.send(Object.assign({}, success, { data: sendData }))
     default:
       res.sendStatus('404')
   }

@@ -19,14 +19,18 @@ const App = () => {
       const fetchData = await FETCH_PATCH({ type: 'get' })
       let {
         data: {
-          cartoonfold
+          cartoonfold,
+          readed,
+          last
         },
         state: st
       } = fetchData
       if (!st) {
         dispatch({
           type: 'updataInit', value: {
-            cartoonfold
+            cartoonfold,
+            readed,
+            last
           }
         })
       }

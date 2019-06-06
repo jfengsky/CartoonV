@@ -59,3 +59,112 @@ export const writefile = async (_data: any) => {
     writeState: 'success'
   }
 }
+
+export const writeFold = async (_data: any) => {
+  let {
+    path: foldPath,
+    fold
+  } = _data
+  let fileData = await readfile({ path: foldPath })
+  let readed = fileData['readed']
+  if (!readed) {
+    readed = []
+  }
+
+  let foldIndex: number = -1
+  readed.some((item: any, index: number) => {
+    if (item.name === fold) {
+      foldIndex = index
+      return true
+    }
+  })
+
+  if (foldIndex < 0) {
+    readed.push({
+      name: fold,
+      readed: false,
+      page: []
+    })
+  }
+
+  fileData['readed'] = readed
+  fileData['last'] = {
+    name: fold,
+    page: ''
+  }
+  const filePath: string = path.join(__dirname, foldPath)
+  let wirtes = await fs.writeFileSync(filePath, JSON.stringify(fileData))
+  return {
+    writeState: 'success'
+  }
+}
+
+export const writeFoldfile = async (_data: any) => {
+  let {
+    path: foldPath,
+    fold,
+    page
+  } = _data
+  let fileData = await readfile({ path: foldPath })
+  let readed = fileData['readed']
+
+  let foldIndex: number = -1
+  readed.some((item: any, index: number) => {
+    if (item.name === fold) {
+      foldIndex = index
+      return true
+    }
+  })
+
+  let readedInfo = readed[foldIndex]
+  let readedPage = readedInfo.page
+  if (readedPage.indexOf(page) < 0) {
+    readedPage.push(page)
+  }
+
+  fileData['readed']['page'] = readedPage
+  fileData['last'] = {
+    name: fold,
+    page
+  }
+  const filePath: string = path.join(__dirname, foldPath)
+  let wirtes = await fs.writeFileSync(filePath, JSON.stringify(fileData))
+  return {
+    writeState: 'success'
+  }
+}
+
+
+export const writeFoldReaded = async (_data: any) => {
+  let {
+    path: foldPath,
+    fold,
+    readed: tempReaded
+  } = _data
+  let fileData = await readfile({ path: foldPath })
+  let readed = fileData['readed']
+
+  let foldIndex: number = -1
+  readed.some((item: any, index: number) => {
+    if (item.name === fold) {
+      foldIndex = index
+      return true
+    }
+  })
+
+  if (foldIndex >= 0) {
+    readed[foldIndex]['readed'] = tempReaded
+  } else {
+    readed.push({
+      name: fold,
+      readed: tempReaded,
+      page: []
+    })
+  }
+
+  const filePath: string = path.join(__dirname, foldPath)
+  let wirtes = await fs.writeFileSync(filePath, JSON.stringify(fileData))
+  return {
+    writeState: 'success'
+  }
+}

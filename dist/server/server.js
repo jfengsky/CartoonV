@@ -64,8 +64,9 @@ app.post('*', function (req, res) { return __awaiter(_this, void 0, void 0, func
                 switch (_a) {
                     case '/cartoonPath': return [3 /*break*/, 1];
                     case '/cartoonFold': return [3 /*break*/, 3];
+                    case '/changeFold': return [3 /*break*/, 5];
                 }
-                return [3 /*break*/, 5];
+                return [3 /*break*/, 7];
             case 1: return [4 /*yield*/, foldInfo_1.default({ data: req.body })];
             case 2:
                 sendData = _b.sent();
@@ -74,10 +75,14 @@ app.post('*', function (req, res) { return __awaiter(_this, void 0, void 0, func
             case 4:
                 sendData = _b.sent();
                 return [2 /*return*/, res.send(Object.assign({}, success, { data: sendData }))];
-            case 5:
+            case 5: return [4 /*yield*/, foldInfo_1.default({ data: req.body })];
+            case 6:
+                sendData = _b.sent();
+                return [2 /*return*/, res.send(Object.assign({}, success, { data: sendData }))];
+            case 7:
                 res.sendStatus('404');
-                _b.label = 6;
-            case 6: return [2 /*return*/];
+                _b.label = 8;
+            case 8: return [2 /*return*/];
         }
     });
 }); });

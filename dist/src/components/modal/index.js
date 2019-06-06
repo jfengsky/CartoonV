@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
+var fetch_1 = require("../../store/fetch");
 var useState = React.useState, useEffect = React.useEffect;
 var modalStyle = {
     background: '#333',
@@ -73,6 +74,13 @@ var Modal = function (_a) {
             }
         }, false);
     }, []);
+    useEffect(function () {
+        fetch_1.FETCH_SAVE_FOLD({
+            type: 'saveFoldFile',
+            fold: breadcrumb,
+            page: currentImage
+        });
+    }, [currentImage]);
     return (React.createElement("div", { style: modalStyle },
         !isFull && React.createElement("div", { className: 'modal-header' },
             React.createElement("span", { style: fr, onClick: function () { return Dispatch({ type: 'hideModal' }); } }, "\u5173\u95ED"),

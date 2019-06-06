@@ -19,6 +19,10 @@ export const FETCH_FOLD = async (data: any) => {
   }).then(res => res.json())
 }
 
-export const FETCH_SAVE_VIEW = async (data: any) => {
-
+export const FETCH_SAVE_FOLD = async (data: any) => {
+  return await fetch('/changeFold', {
+    method: 'post',
+    headers,
+    body: JSON.stringify(data)
+  }).then(res => res.json())
 }

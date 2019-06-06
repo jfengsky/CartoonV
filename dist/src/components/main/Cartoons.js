@@ -40,13 +40,27 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 var _this = this;
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = require("react");
+var fetch_1 = require("../../store/fetch");
 var useState = React.useState, useEffect = React.useEffect;
 var CartoonFold = function (_a) {
     var data = _a.data, Dispatch = _a.Dispatch, State = _a.State;
+    var readed = State.readed;
+    var hasReaded = false;
+    if (readed && readed.length) {
+        readed.some(function (item) {
+            if (item.name === data) {
+                hasReaded = item.readed;
+                return true;
+            }
+        });
+    }
     var changeFold = function (data) { return __awaiter(_this, void 0, void 0, function () {
-        var cartoonfold;
         return __generator(this, function (_a) {
-            cartoonfold = State.cartoonfold;
+            // 保存文件夹
+            fetch_1.FETCH_SAVE_FOLD({
+                type: 'saveFold',
+                fold: data
+            });
             Dispatch({
                 type: 'changeFold', value: {
                     breadcrumb: data
@@ -55,13 +69,24 @@ var CartoonFold = function (_a) {
             return [2 /*return*/];
         });
     }); };
+    var changeReaded = function (e) { return __awaiter(_this, void 0, void 0, function () {
+        return __generator(this, function (_a) {
+            fetch_1.FETCH_SAVE_FOLD({
+                type: 'changeReaded',
+                fold: data,
+                readed: e.target.checked
+            });
+            return [2 /*return*/];
+        });
+    }); };
+    console.log(hasReaded);
     return (React.createElement("div", { className: 'card' },
         React.createElement("div", { className: 'card-body' },
             React.createElement("h5", { className: "card-text" },
                 React.createElement("a", { href: "#" + data, onClick: function () { return changeFold(data); } }, data))),
         React.createElement("div", { className: "card-footer" },
             React.createElement("div", { className: 'form-check form-check-inline' },
-                React.createElement("input", { className: "form-check-input", type: "checkbox", value: "0" }),
+                React.createElement("input", { className: "form-check-input", type: "checkbox", defaultChecked: hasReaded, onChange: changeReaded }),
                 React.createElement("label", { className: "form-check-label" }, "readed")))));
 };
 var CartoonImg = function (_a) {

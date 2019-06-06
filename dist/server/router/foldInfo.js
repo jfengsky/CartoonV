@@ -41,11 +41,11 @@ var initPath = '../../init/index.json';
 exports.default = (function (_a) {
     var data = _a.data;
     return __awaiter(_this, void 0, void 0, function () {
-        var type, value, fold, data_1, data_2, data_3;
+        var type, value, fold, page, readed, data_1, data_2, data_3, data_4, data_5, data_6;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
-                    type = data.type, value = data.value, fold = data.fold;
+                    type = data.type, value = data.value, fold = data.fold, page = data.page, readed = data.readed;
                     if (!(type === 'get')) return [3 /*break*/, 2];
                     return [4 /*yield*/, file_1.readfile({ path: initPath })];
                 case 1:
@@ -63,7 +63,25 @@ exports.default = (function (_a) {
                 case 5:
                     data_3 = _b.sent();
                     return [2 /*return*/, data_3];
-                case 6: return [2 /*return*/, {}];
+                case 6:
+                    if (!(type === 'saveFold')) return [3 /*break*/, 8];
+                    return [4 /*yield*/, file_1.writeFold({ path: initPath, fold: fold })];
+                case 7:
+                    data_4 = _b.sent();
+                    return [2 /*return*/, data_4];
+                case 8:
+                    if (!(type === 'saveFoldFile')) return [3 /*break*/, 10];
+                    return [4 /*yield*/, file_1.writeFoldfile({ path: initPath, fold: fold, page: page })];
+                case 9:
+                    data_5 = _b.sent();
+                    return [2 /*return*/, data_5];
+                case 10:
+                    if (!(type === 'changeReaded')) return [3 /*break*/, 12];
+                    return [4 /*yield*/, file_1.writeFoldReaded({ path: initPath, fold: fold, readed: readed })];
+                case 11:
+                    data_6 = _b.sent();
+                    return [2 /*return*/, data_6];
+                case 12: return [2 /*return*/, {}];
             }
         });
     });

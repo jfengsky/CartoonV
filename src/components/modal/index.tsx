@@ -1,5 +1,7 @@
 import * as React from 'react'
 
+import { FETCH_SAVE_FOLD } from '../../store/fetch'
+
 const { useState, useEffect } = React
 
 const modalStyle: any = {
@@ -23,8 +25,8 @@ const conStyle: any = {
   opacity: 0.01
 }
 
-const leftStyle = Object.assign({}, conStyle, {float: 'left'})
-const rightStyle = Object.assign({}, conStyle, {float: 'right'})
+const leftStyle = Object.assign({}, conStyle, { float: 'left' })
+const rightStyle = Object.assign({}, conStyle, { float: 'right' })
 
 const Modal = ({ State, Dispatch }: any) => {
   const [isFull, setFull] = useState(false)
@@ -43,7 +45,7 @@ const Modal = ({ State, Dispatch }: any) => {
     breadcrumb
   } = State
 
-  
+
 
   const prevImage = () => changeImage('prev')
   const nextImage = () => changeImage('next')
@@ -71,18 +73,27 @@ const Modal = ({ State, Dispatch }: any) => {
         }
       }
       Dispatch({ type: 'changeCurrentImage', value: fileList[index] })
+
     }
   }
 
   useEffect(() => {
     window.addEventListener('keyup', e => {
-      if(e.keyCode === 37){
+      if (e.keyCode === 37) {
         prevImage()
-      } else if(e.keyCode === 39){
+      } else if (e.keyCode === 39) {
         nextImage()
       }
     }, false)
   }, [])
+
+  useEffect(() => {
+    FETCH_SAVE_FOLD({
+      type: 'saveFoldFile',
+      fold: breadcrumb,
+      page: currentImage
+    })
+  }, [currentImage])
 
   return (
     <div style={modalStyle}>

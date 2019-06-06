@@ -3,14 +3,31 @@
  */
 
 import * as React from 'react'
+import { FETCH_SAVE_FOLD } from '../../store/fetch'
 
 const { useState, useEffect } = React
 
 const CartoonFold = ({ data, Dispatch, State }: any) => {
+  let {
+    readed
+  } = State
+
+  let hasReaded = false
+  if (readed && readed.length) {
+    readed.some((item: any) => {
+      if (item.name === data) {
+        hasReaded = item.readed
+        return true
+      }
+    })
+  }
+
   const changeFold = async (data: string) => {
-    let {
-      cartoonfold
-    } = State
+    // 保存文件夹
+    FETCH_SAVE_FOLD({
+      type: 'saveFold',
+      fold: data
+    })
 
     Dispatch({
       type: 'changeFold', value: {
@@ -19,6 +36,14 @@ const CartoonFold = ({ data, Dispatch, State }: any) => {
     })
   }
 
+  const changeReaded = async (e: any) => {
+    FETCH_SAVE_FOLD({
+      type: 'changeReaded',
+      fold: data,
+      readed: e.target.checked
+    })
+  }
+  console.log(hasReaded)
   return (
     <div className='card'>
       <div className='card-body'>
@@ -28,7 +53,7 @@ const CartoonFold = ({ data, Dispatch, State }: any) => {
       </div>
       <div className="card-footer">
         <div className='form-check form-check-inline'>
-          <input className="form-check-input" type="checkbox" value="0" />
+          <input className="form-check-input" type="checkbox" defaultChecked={hasReaded} onChange={changeReaded} />
           <label className="form-check-label">readed</label>
         </div>
       </div>
